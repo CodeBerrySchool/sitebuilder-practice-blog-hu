@@ -1,0 +1,326 @@
+/**
+ * ÁTTEKINTÉS
+ *
+ * Ez a fájl írja le az oldalt felépítő komponenseket. Onnantól, hogy
+ * milyen a belső elrendezésük, egészen odáig, hogy milyen a szövegük
+ * színe, stb.
+ *
+ * Eddig is láthattad, de itt aztán nagyon erősen érvényesül a BEM
+ * (Block - Element - Modifier) gondolkodás a kódban. Ha ez ismeretlen
+ * számodra, javasoljuk, hogy olvasd el ezt a részt Harry Roberts
+ * CSS guideline-jában: https://cssguidelin.es/#bem-like-naming.
+ */
+
+
+/**
+ * TARTALOMJEGYZÉK
+ *
+ * 1. GOMBOK
+ *
+ * 2. FEJLÉC
+ *
+ * 3. NAVIGÁCIÓ
+ *
+ * 4. POSZT
+ *
+ * 5. KATEGÓRIA KÁRTYA
+ *
+ * 6. OLDALSÁV
+ *
+ * 7. LÁBLÉC
+ */
+
+
+
+
+
+/*------------------------------------*\
+  #GOMBOK
+\*------------------------------------*/
+
+.button {
+  display:        inline-block;
+  width:          11.429rem;
+  padding:        .928rem 0;
+  border:         2px solid;
+  border-radius:  1.786rem;
+  text-align:     center;
+}
+
+  .button--primary-hollow {
+    border-color:     #6200ea;
+    color:            #6200ea;
+    background-color: transparent;
+  }
+
+  .button--primary-hollow:visited { color: #6200ea; }
+
+  .button--secondary-solid {
+    border:           0;
+    color:            #6200ea;
+    background-color: #ffffff;
+  }
+
+  .button--secondary-solid:visited { color: #6200ea; }
+
+  .button--secondary-hollow {
+    border-color:     #ffffff;
+    color:            #ffffff;
+    background-color: transparent;
+  }
+
+  .button--secondary-hollow:visited { color: #ffffff; }
+
+
+
+
+
+/*------------------------------------*\
+  #FEJLÉC
+\*------------------------------------*/
+
+/**
+ * 1. Ez a két szabályszett alkotja a CSS hacket, amellyel függőlegesen
+ * középre helyezzük a fejléc tartalmát. Erről a technikáról bővebben
+ * a Gyakori komponensek modulunk Fejlécek című fejezetében olvashatsz.
+ *
+ * 2. Ezzel a right marginnal érjük el, hogy a logó ugyanott jelenjen meg,
+ * mint a design prototípusban.
+ */
+
+.header {
+  height:           80px;
+  background-color: #6200ea;
+}
+
+  .header__wrapper { /* [1] */
+    display:  table;
+    height:   100%;
+  }
+
+    .header__content { /* [1] */
+      display:        table-cell;
+      vertical-align: middle;
+    }
+
+      .header__subscribe,
+      .logo {
+        float: left;
+      }
+
+      .header__subscribe {
+        margin-right: 27.477%; /* [2] */
+      }
+
+
+
+
+
+/*------------------------------------*\
+  #NAVIGÁCIÓ
+\*------------------------------------*/
+
+/**
+ * 1. Ugyanaz a trükk, mint a Fejléc esetében. Ezek a szabályok kellenek,
+ * hogy a tartalom függőlegesen középre rendezett legyen.
+ *
+ * 2. Vízszintesen is középre igazítjuk a navigációt.
+ *
+ * 3. Ez a padding ahhoz kell, hogy a hover effektus lila sávja a megfelelő
+ * helyen jelenjen meg.
+ *
+ * 4. Ezzel a szabállyal vesszük le az utolsó linkről a felesleges jobb oldali
+ * margint.
+ */
+
+.navigation {
+  height:           80px;
+  background-color: #ffffff;
+}
+
+  .navigation__wrapper { /* [1] */
+    display:  table;
+    height:   100%;
+  }
+
+    .navigation__link-container { /* [1] */
+      display:        table-cell;
+      height:         100%;
+      vertical-align: middle;
+      text-align:     center; /* [2] */
+    }
+
+      .navigation__link {
+        padding-bottom: 2.1rem; /* [3] */
+        margin-right:   5%;
+        color:          #211138;
+      }
+
+      a.navigation__link:last-child { margin-right: 0; } /* [4] */
+
+      .navigation__link:visited { color: #211138; }
+
+      .navigation__link:hover {
+        border-bottom:  solid;
+        border-color:   #6200ea;
+        color:          #6200ea;
+      }
+
+
+
+
+
+/*------------------------------------*\
+  #POSZT
+\*------------------------------------*/
+
+/**
+ * 1. Ez a display: block; deklaráció azért szükséges, mert különben a kép
+ * és a többi tartalom között megjelenik egy pár pixelnyi üres tér. Ezt az
+ * okozza, hogy az img tag alapértelmezetten egy speciális inline elem,
+ * így hat rá a line-height property. Az ezzel kapcsolatos problémákat
+ * elkerülendő, egyszerűbb ezt a képet átállítani block elemre.
+ */
+
+.post {
+  border-radius:    1.071rem;
+  background-color: #ffffff;
+  padding:          4.286rem 4.286rem 3.751rem 4.286rem;
+}
+
+  .post__metadata { color: #b2acba; }
+
+  .post__lede { font-size: 1.429rem; }
+
+  .post__image {
+    display:       block; /* [1] */
+    width:         100%;
+    height:        320px;
+    object-fit:    cover;
+    border-radius: 1.071rem 1.071rem 0 0;
+  }
+
+.post--w-cover { border-radius: 0 0 1.071rem 1.071rem; }
+
+.post--featured {
+  color:            #ffffff;
+  background-image: url('../assets/blog_posts/roberto-nickson-5ui0tfMC5ts-unsplash.jpg');
+  background-size:  cover;
+}
+
+
+
+
+
+/*------------------------------------*\
+  #KATEGÓRIA KÁRTYA
+\*------------------------------------*/
+
+/**
+ * 1. Ez a property oldja meg, hogy a képek az eredeti arányaiktól függetlenül
+ * szépen, összenyomás nélkül jelenjenek meg a négyzet alakú keretekben.
+ *
+ * 2. Alapértelmezetten a p tageknek van egy alsó marginja, amely itt
+ * összeadódna a kártyák paddingjével, így az alsó és felső padding
+ * nem lenne egyenlő. Ez a szabály lenullázza a kártyák szövegének marginját,
+ * így megoldva ezt a problémát.
+ *
+ * 3. Ez a modifier alkalmassá teszi a komponenst, hogy megfelelően jelenjen meg
+ * az oldalsávban.
+ */
+
+.category-card {
+  padding:          1.429rem;
+  border-radius:    1.071rem;
+  background-color: #ffffff;
+}
+
+  .category-card__image {
+    float:          left;
+    width:          8.571rem;
+    height:         8.571rem;
+    margin-right:   1.429rem;
+    border-radius:  .714rem;
+    object-fit:     cover; /* [1] */
+  }
+
+  .category-card__name { color: #6200ea; }
+
+  .category-card__text { margin-bottom: 0; } /* [2] */
+
+.category-card--nested { border-radius: 0; } /* [3] */
+
+
+
+
+
+/*------------------------------------*\
+  #OLDALSÁV
+\*------------------------------------*/
+
+.sidebar-element { border-radius: 1.071rem; }
+
+  .sidebar-element__header {
+    padding:          1.643rem 0 1.571rem 0;
+    border-radius:    1.071rem 1.071rem 0 0;
+    text-align:       center;
+    color:            #ffffff;
+    background-color: #6200ea;
+  }
+
+    .sidebar-element__title { margin-bottom: 0; }
+
+  .sidebar-element__call-to-action {
+    padding:          1.571rem 0 1.643rem 0;
+    border-top:       .071rem solid;
+    border-radius:    0 0 1.071rem 1.071rem;
+    border-color:     #f4f3f5;
+    text-align:       center;
+    background-color: #ffffff;
+  }
+
+    .sidebar-element__cta-link         { color: #b2acba; }
+    .sidebar-element__cta-link:visited { color: #b2acba; }
+
+  .sidebar-element__list {
+    list-style-type:  none;
+    padding:          0;
+  }
+
+    .sidebar-element__list-item {
+      padding:          1.214rem 2.143rem 1.286rem 2.143rem;
+      border-bottom:    1px solid;
+      border-color:     #f4f3f5;
+      background-color: #ffffff;
+    }
+
+    .sidebar-element__list:last-child { border-bottom: 0; }
+
+      .sidebar-element__category-link         { color: #211138; }
+      .sidebar-element__category-link:visited { color: #211138; }
+
+
+
+/*------------------------------------*\
+  #LÁBLÉC
+\*------------------------------------*/
+
+.footer {
+  height:           100px;
+  padding:          3.071rem 0 3rem 0;
+  text-align:       center;
+  background-color: #211138;
+}
+
+  .footer__copyright {
+    text-transform: uppercase;
+    font-size:      .857rem;
+    font-weight:    bold;
+    letter-spacing: .171rem;
+    color:          #b2acba;
+  }
+
+  .footer__brand-name,
+  .footer__student-name {
+    color: #6200ea;
+  }
